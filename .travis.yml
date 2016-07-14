@@ -23,6 +23,8 @@ install:
 script:
   - set -e
   - minimesos up
+  - docker stop vault
+  - docker rm vault
   - docker run -d -p 8200:8200 --hostname vault --name vault sjourdan/vault
   - bash integration.sh
   - go vet .
