@@ -1,0 +1,32 @@
+language: go
+
+sudo: required
+dist: trusty
+
+cache:
+  directories:
+
+sudo: required
+
+services:
+  - docker
+
+env:
+  global:
+    - GOMAXPROCS=2
+    - PATH=$PATH:$HOME/.minimesos/bin
+
+go:
+  - 1.6
+
+install:
+  - curl -sSL https://minimesos.org/install | sh
+
+script:
+  - set -e
+  - minimesos up --clusterConfig minimesos/minimesosFile
+  - bash integration.sh
+  - go vet .
+
+notifications:
+  - email: false
