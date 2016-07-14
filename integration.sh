@@ -9,7 +9,6 @@ function vault () {
 function run_tests() {
 
 	# Run Vault
-	docker run -d -p 8200:8200 --hostname vault --name vault sjourdan/vault
 	VAULT_HOST=`docker inspect -f '{{ .NetworkSettings.IPAddress }}' vault`
 	export VAULT_ADDR="http://$VAULT_HOST:8200"
 	export VAULT_TOKEN=`docker logs vault 2>/dev/null | grep 'Root Token' | awk '{ printf $3 }'`
