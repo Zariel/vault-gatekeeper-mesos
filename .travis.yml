@@ -3,10 +3,8 @@ language: go
 sudo: required
 dist: trusty
 
-cache:
-  directories:
-
-sudo: required
+#cache:
+#  directories:
 
 services:
   - docker
@@ -24,9 +22,15 @@ install:
 
 script:
   - set -e
-  - minimesos up --clusterConfig minimesos/minimesosFile
+  - minimesos up
+  - docker run -d -p 8200:8200 --hostname vault --name vault sjourdan/vault
   - bash integration.sh
   - go vet .
 
-notifications:
-  - email: false
+after_script:
+  - minimesos destroy
+  - docker stop vault
+  - docker rm vault
+
+#notifications:
+#  - email: false
