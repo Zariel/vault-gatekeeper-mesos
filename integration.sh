@@ -17,9 +17,6 @@ function run_tests() {
 	eval `cd minimesos/ && minimesos info | tail -n+3`
 	vault status
 	echo $MINIMESOS_AGENT
-
-	docker stop vault
-	docker rm vaul
 }
 
 run_tests
