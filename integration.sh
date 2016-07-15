@@ -14,7 +14,7 @@ function run_tests() {
 	export VAULT_TOKEN=`docker logs vault 2>/dev/null | grep 'Root Token' | awk '{ printf $3 }'`
 
 	# Import minimesos env args
-	eval `cd minimesos/ && minimesos info | tail -n+3`
+	eval `minimesos info | tail -n+3`
 	vault status
 	echo $MINIMESOS_AGENT
 }
